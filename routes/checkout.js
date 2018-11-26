@@ -1,5 +1,6 @@
 var express = require('express');
 var request = require('request');
+var cookieSession = require('cookie-session');
 var router = express.Router();
 var port = 3001;
 var path = "/WebApi";
@@ -15,10 +16,13 @@ var queryHasSock="SELECT Artigo, Armazem, ISNULL(StkActual, 0) AS StkActual FROM
 
 // });
 
+
+
+
+
+
 router.get('/auth',function(req,res){
     res.redirect('../authPrimavera');
-    //res.send("asdsad");
-    console.log(req);
 });
 
 router.get('/checkStock/:idItem',function(req,res){

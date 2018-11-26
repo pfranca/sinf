@@ -1,6 +1,10 @@
 var express = require('express');
 var request = require('request');
 var router = express.Router();
+var cookieParser = require('cookie-parser');
+router.use(cookieParser());
+
+
 
 var port = 3001;
 var path = "/WebApi";
@@ -19,6 +23,8 @@ router.get('/',function(req,res){
     line: 'professional'
   };
 
+
+
   
   let headersOpt = {
     'content-type': 'application/x-www-form-urlencoded',
@@ -29,18 +35,23 @@ router.get('/',function(req,res){
       console.error(error);
       return;
     } else {
-      res.send(body);
-      res.status(200);
       jsonArray = JSON.parse(body);
       for (i in jsonArray.access_token) {
         jsonArray.access_token[i]!=undefined
           acessTokenNotFiltered += jsonArray.access_token[i];
       } 
-      FinalToken=acessTokenNotFiltered.replace("undefined","")
+      FinalToken=acessTokenNotFiltered.replace("undefined","");
+      res.cookie("primaveraAuth" , FinalToken,{ expires: new Date(Date.now() + (1199*1000)), httpOnly: true });
+      res.send(body + " Cookie is set");
+      res.status(200);
+     
     }
-    response=FinalToken;
+
+    //res.cookie("primaveraAuth" , FinalToken,{expire : new Date() + 1199}).send('Cookie is set');
 
   });
+
+
 
 
 });
