@@ -4,10 +4,12 @@ var exphbs = require('express-handlebars')
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
-
+var acessToken;
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
+var my_var="hello";
 var checkoutRouter = require('./routes/checkout');
+var authRouter = require('./routes/authPrimavera');
 var app = express();
 
 
@@ -24,7 +26,8 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
-app.use('/checkout',checkoutRouter);
+app.use('/checkout',checkoutRouter);//(my_var);
+app.use('/authPrimavera',authRouter);
 
 
 module.exports = app;
