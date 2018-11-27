@@ -41,10 +41,11 @@ router.get('/',function(req,res){
           acessTokenNotFiltered += jsonArray.access_token[i];
       } 
       FinalToken=acessTokenNotFiltered.replace("undefined","");
+
+
       res.cookie("primaveraAuth" , FinalToken,{ expires: new Date(Date.now() + (1199*1000)), httpOnly: true });
-      res.send(body + " Cookie is set");
       res.status(200);
-     
+      res.send(body + " Cookie is set");
     }
 
     //res.cookie("primaveraAuth" , FinalToken,{expire : new Date() + 1199}).send('Cookie is set');
