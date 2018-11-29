@@ -3,8 +3,6 @@ var request = require('request');
 
 //var getIndexCookies = required('../authPrimavera');
 var router = express.Router();
-var port = 3001;
-var path = "/WebApi";
 var idArtigoHardCoded="A0001";
 var endPoint = "/Administrador/Consulta";
 var queryHasSock="SELECT Artigo, Armazem, ISNULL(StkActual, 0) AS StkActual FROM V_INV_ArtigoArmazem";
@@ -35,9 +33,9 @@ router.get('/checkStock/:idItem',function(req,res){
         secondToken:my_var
       };
 
-    request.post({url: 'http://localhost:'+port+path+endPoint, form:params},function(req,res,next){
+    request.post({url: url+endPoint, form:params},function(req,res,next){
 
     })
-    
+
 });
 module.exports = router;

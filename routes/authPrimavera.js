@@ -25,7 +25,7 @@ router.get('/',function(req,res){
 
 
 
-  
+
   let headersOpt = {
     'content-type': 'application/x-www-form-urlencoded',
   };
@@ -39,7 +39,7 @@ router.get('/',function(req,res){
       for (i in jsonArray.access_token) {
         jsonArray.access_token[i]!=undefined
           acessTokenNotFiltered += jsonArray.access_token[i];
-      } 
+      }
       FinalToken=acessTokenNotFiltered.replace("undefined","");
 
 
