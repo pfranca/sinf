@@ -18,8 +18,6 @@ var queryHasSock="SELECT Artigo, Armazem, ISNULL(StkActual, 0) AS StkActual FROM
 var finalCookie;
 
 
-
-
 router.get('/getCookie',function(req,res){
     res.redirect('../getCookie');
 });
@@ -27,6 +25,7 @@ router.get('/getCookie',function(req,res){
 router.get('/auth',function(req,res){
     res.redirect('../authPrimavera');
 });
+
 router.get('/checkStock/:idItem',function(req,res){
 
     let params ={
