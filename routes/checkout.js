@@ -31,39 +31,36 @@ router.get('/:item',function(req,res){
         res.send(body);
     });
 });
-router.get('/',function(req,res){
-    let params={
-            "Linhas": 
-                {
-                    "Artigo": "A0001",
-                    "Quantidade": "1"
-                }
-            ,
-            "TipoDoc": "FA",
-            "Serie": "A",
-            "CondPag":"1",
-            "Entidade": "NUNOA",
-            "TipoEntidade": "C",
-            "DataDoc": "06/12/2018",
-            "DataVenc":"08/12/2018"
-        };
-    var options = { method: 'POST',
-        url: url + endPointSalesDoc,
-        headers:
-            {
-                'cache-control': 'no-cache',
-                Authorization:'Bearer '+ token,
-                'Content-Type': 'application/json' },
-        body: params,
-        json: true };
-    request(options, (error, response, body) => {
-        if(error){
-            console.error("erro" + error);
-            return;
-        }
-
-        res.send(body);
+router.get('/',function(req,res){   
+    console.log(arrayItem);
+    arrayItem.forEach(function(value){
+        console.log(value);
     });
+    var options = { method: 'POST',
+    url: 'http://localhost:2018/WebApi/Vendas/Docs/CreateDocument/',
+    headers: 
+     {
+       'cache-control': 'no-cache',
+       Authorization: 'Bearer '+token,
+       'Content-Type': 'application/json' },
+    body: 
+     { Linhas: 
+        [ { Artigo: 'A0001', Quantidade: '1' },
+          { Artigo: 'A0002', Quantidade: '1' } ],
+       TipoDoc: 'FA',
+       Serie: 'A',
+       CondPag: '1',
+       Entidade: 'NUNOA',
+       TipoEntidade: 'C',
+       DataDoc: '02/12/2018',
+       DataVenc: '31/01/2019' },
+    json: true };
+  
+  request(options, function (error, response, body) {
+    if (error) throw new Error(error);
+    res.send(body);
+
+  });
 });
 
 
