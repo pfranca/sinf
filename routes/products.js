@@ -5,7 +5,6 @@ var router = express.Router();
 
 //devolve a lista total de produtos {nome,descrição} em json
 router.get('/product-list',function(req,res){
-
     var options = { method: 'GET',
         url: url + 'Administrador/Consulta',
         headers:
@@ -15,7 +14,6 @@ router.get('/product-list',function(req,res){
                 'Content-Type': 'application/json' },
         body: 'SELECT * FROM Artigo',
         json: true };
-
 
     request(options, (error, response, body) => {
         if(error){

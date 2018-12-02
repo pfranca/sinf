@@ -4,10 +4,9 @@ var path = require('path');
 var logger = require('morgan');
 var request = require('request');
 var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
 var checkoutRouter = require('./routes/checkout');
-var authRouter = require('./routes/authPrimavera');
 var productsRouter = require('./routes/products');
+
 var app = express();
 
 // view engine setup
@@ -49,9 +48,7 @@ app.use(async (req, res, next) =>{
 });
 
 app.use('/', indexRouter);
-app.use('/users', usersRouter);
 app.use('/checkout',checkoutRouter);//(my_var);
-app.use('/authPrimavera',authRouter);
 app.use('/products',productsRouter);
 
 
