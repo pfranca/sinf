@@ -40,6 +40,7 @@ router.get('/',function(req,res){
 });
 
 
+<<<<<<< HEAD
 
 router.get('/:item',function(req,res){
     const final=queryHasSock.concat(req.params.item+"'"+endQueryHasStock);
@@ -62,6 +63,17 @@ router.get('/:item',function(req,res){
     });
 });
 
+=======
+router.get('/getCookie',function(req,res){
+    res.redirect('../getCookie');
+});
+
+router.get('/auth',function(req,res){
+    res.redirect('../authPrimavera');
+});
+
+router.get('/checkStock/:idItem',function(req,res){
+>>>>>>> cart
 
 
 
