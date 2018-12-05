@@ -16,7 +16,6 @@ router.get('/cart-list',function(req,res){
         body: "SELECT AM.Artigo,A.Descricao,AM.PVP1,AA.StkActual FROM Artigo A,ArtigoMoeda AM INNER JOIN V_INV_ArtigoArmazem AA ON AM.Artigo = AA.Artigo WHERE AM.Artigo='A0001' ORDER BY AM.Artigo",
         json: true };
 
-
     request(options, (error, response, body) => {
         if(error){
 

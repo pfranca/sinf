@@ -12,7 +12,6 @@ var fs = require('fs');
 var indexRouter = require('./routes/index');
 var cartRouter = require('./routes/cart');
 var checkoutRouter = require('./routes/checkout');
-var authRouter = require('./routes/authPrimavera');
 var productsRouter = require('./routes/products');
 var app = express();
 
@@ -74,8 +73,7 @@ app.use(async (req, res, next) =>{
 
 app.use('/', indexRouter);
 app.use('/cart', cartRouter);
-app.use('/checkout',checkoutRouter);//(my_var);
-app.use('/authPrimavera',authRouter);
+app.use('/checkout',checkoutRouter);
 app.use('/products',productsRouter);
 
 
