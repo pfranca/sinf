@@ -37,7 +37,7 @@ router.get('/:id',function(req,res){
                 'cache-control': 'no-cache',
                 Authorization: 'Bearer ' + token,
                 'Content-Type': 'application/json' },
-        body: 'SELECT AM.Artigo,A.Descricao,AM.PVP1,AA.StkActual, A.Observacoes FROM Artigo A,ArtigoMoeda AM INNER JOIN V_INV_ArtigoArmazem AA ON AM.Artigo = AA.Artigo WHERE AM.Artigo=\'A0001\'',
+        body: 'SELECT AM.Artigo,A.Descricao,AM.PVP1,AA.StkActual, A.Observacoes FROM Artigo A,ArtigoMoeda AM INNER JOIN V_INV_ArtigoArmazem AA ON AM.Artigo = AA.Artigo WHERE AM.Artigo=\''+id+'\'',
         json: true };
 
     request(options, (error, response, body) => {
