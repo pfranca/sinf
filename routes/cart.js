@@ -6,7 +6,6 @@ var router = express.Router();
 //devolve a lista total de produtos {nome,descrição} em json
 //TODO query hardcoded
 router.get('/list',function(req,res){
-
     var options = {
         method: 'POST',
         url: url + 'Administrador/Consulta',

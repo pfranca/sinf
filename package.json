@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "nodemon ./bin/www"
+    "start": "nodemon -L ./bin/www"
   },
   "dependencies": {
     "browser-cookies": "^1.2.0",
@@ -14,7 +14,7 @@
     "express": "~4.16.0",
     "express-handlebars": "^3.0.0",
     "http-errors": "~1.6.2",
-    "jade": "~1.11.0",
+    "mongoose": "^5.3.14",
     "morgan": "~1.9.0",
     "request": "^2.88.0"
   },

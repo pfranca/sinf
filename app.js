@@ -5,9 +5,8 @@ var path = require('path');
 var logger = require('morgan');
 var request = require('request');
 var fs = require('fs');
-
-
-
+const mongoose = require('mongoose');
+const dbConfig = require('./config/database.config.js');
 
 var indexRouter = require('./routes/index');
 var cartRouter = require('./routes/cart');
@@ -20,9 +19,20 @@ app.engine('handlebars', exphbs({defaultLayout: 'main'}));
 app.set('view engine', 'handlebars');
 
 app.use(logger('dev'));
+app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, 'public')));
+
+//Ligação à base de dados
+mongoose.Promise = global.Promise;
+mongoose.connect(dbConfig.url, {
+    useNewUrlParser: true
+}).then(() => {
+    console.log("Successfully connected to the database");
+}).catch(err => {
+    console.log('Could not connect to the database. Exiting now...', err);
+    process.exit();
+});
 
 //URL base da API
 global.url = "http://localhost:2018/WebApi/";
