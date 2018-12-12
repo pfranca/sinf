@@ -6,6 +6,8 @@
     "start": "nodemon -L ./bin/www"
   },
   "dependencies": {
+    "babel-preset-env": "^1.7.0",
+    "bcryptjs": "^2.4.3",
     "browser-cookies": "^1.2.0",
     "cookie-parser": "^1.4.3",
     "cookie-session": "^2.0.0-beta.3",
@@ -13,8 +15,10 @@
     "debug": "~2.6.9",
     "express": "~4.16.0",
     "express-handlebars": "^3.0.0",
+    "express-session": "^1.15.6",
     "http-errors": "~1.6.2",
     "mongoose": "^5.3.14",
+    "mongoose-data-seed": "^1.0.7",
     "morgan": "~1.9.0",
     "request": "^2.88.0"
   },
