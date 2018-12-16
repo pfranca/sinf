@@ -45,7 +45,7 @@ app.use(async (req, res, next) =>{
         let params ={
             username: 'FEUP',
             password: 'qualquer1',
-            company: 'BELAFLOR',
+            company: 'TRUTAS',
             instance: 'DEFAULT',
             grant_type: 'password',
             line: 'professional'
