@@ -19,7 +19,7 @@ var authRouter = require('./routes/auth');
 var app = express();
 
 // view engine setup
-app.engine('handlebars', exphbs({defaultLayout: 'main'}));
+app.engine('handlebars', exphbs({default: 'home'}));
 app.set('view engine', 'handlebars');
 
 app.use(logger('dev'));
@@ -76,7 +76,7 @@ app.use(async (req, res, next) =>{
         let params ={
             username: 'FEUP',
             password: 'qualquer1',
-            company: 'BELAFLOR',
+            company: 'TRUTAS',
             instance: 'DEFAULT',
             grant_type: 'password',
             line: 'professional'
