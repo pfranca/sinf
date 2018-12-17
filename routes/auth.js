@@ -1,25 +1,28 @@
 const express = require('express');
-var user = require('../models/user');
+var User = require('../models/user');
 const router = express.Router();
+
 /* Create User */
-// router.get('/create-user', (req, res) => {
-//     res.render('addUser');
-// });
-// router.post('/create-user', (req, res) => {
-//     models.User.create({
-//         username: req.body.username,
-//         role: req.body.role,
-//         email: req.body.email,
-//         password: req.body.password,
-//     })
-//         .then((user) => {
-//             res.redirect('/');
-//         })
-//         .catch((error) => {
-//             console.log(error);
-//             res.redirect('back');
-//         });
-// });
+//TODO adicionar dados sobre user
+router.get('/create-user', (req, res) => {
+    res.render('addUser');
+});
+router.post('/create-user', (req, res) => {
+    var username = req.body.username;
+    var password = req.body.password;
+    var password_repeat = req.body.password_repeat;
+    if(password === password_repeat) {
+        var new_usr = new User({
+            name: username,
+            password: password,
+        });
+        new_usr.save(function (err) {
+            if (err) console.log(err);
+            else 
+            console.log('----SAVED USER----');
+        });
+    }
+});
 
 router.get('/login', (req, res) => {
     res.render('login');
@@ -28,7 +31,7 @@ router.post('/login', (req, res) => {
     const username = req.body.username;
     const password = req.body.password;
 
-    user.findOne({ name:  username }, function(err,usr) {
+    User.findOne({ name:  username }, function(err,usr) {
         if (!usr) {
             res.redirect('back');
         } else if (!usr.comparePassword(password)) {

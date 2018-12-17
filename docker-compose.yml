@@ -17,12 +17,3 @@ services:
       - ./data:/data/db
     ports:
       - "27017:27017"
-  mongo_gui:
-    container_name: mongo_gui
-    image: mongoclient/mongoclient
-    environment:
-      - MONGO_URL=mongodb://mongo:27017/web-store
-    ports:
-      - "3001:3000"
-    links:
-      - mongo
