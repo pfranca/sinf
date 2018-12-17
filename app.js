@@ -16,7 +16,7 @@ var productsRouter = require('./routes/products');
 var app = express();
 
 // view engine setup
-app.engine('handlebars', exphbs({defaultLayout: 'main'}));
+app.engine('handlebars', exphbs({default: 'home'}));
 app.set('view engine', 'handlebars');
 
 app.use(logger('dev'));

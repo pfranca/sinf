@@ -22,8 +22,17 @@ router.get('/product-list',function(req,res){
             console.error("erro" + error);
             return;
         }
-        res.send(body);
+        
+        if(body.DataSet != undefined){
+            
+            res.render('home', {
+                products:body.DataSet.Table
+            });
+        }else{
+            res.send(body);
+        }
     });
+
 });
 
 //devolve os detalhes do artigo :id
