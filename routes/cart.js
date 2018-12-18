@@ -3,10 +3,10 @@ var request = require('request');
 
 var router = express.Router();
 
-//devolve a lista total de produtos {nome,descrição} em json
-//TODO query hardcoded
-router.get('/list',function(req,res){
-    var options = {
+
+router.get('/',function(req,res){
+res.render('cart');
+/*     var options = {
         method: 'POST',
         url: url + 'Administrador/Consulta',
         headers:
@@ -24,7 +24,7 @@ router.get('/list',function(req,res){
             return;
         }
         res.send(body);
-    });
+    }); */
 });
 
 module.exports = router;
