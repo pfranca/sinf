@@ -277,6 +277,78 @@
         $('.js-modalA001').removeClass('show-modalA001');
     });
 
+    /*[ Show 2 ]*/
+
+    $('.js-show-modalA002').on('click',function(e){
+        e.preventDefault();
+        $('.js-modalA002').addClass('show-modalA002');
+    });
+
+    $('.js-hide-modalA002').on('click',function(){
+        $('.js-modalA002').removeClass('show-modalA002');
+    });
+
+    /*[ Show 3 ]*/
+    $('.js-show-modalA003').on('click',function(e){
+        e.preventDefault();
+        $('.js-modalA003').addClass('show-modalA003');
+    });
+
+    $('.js-hide-modalA003').on('click',function(){
+        $('.js-modalA003').removeClass('show-modalA003');
+    });
+    
+    /*[ Show 4 ]*/
+    $('.js-show-modalA004').on('click',function(e){
+        e.preventDefault();
+        $('.js-modalA004').addClass('show-modalA004');
+    });
+
+    $('.js-hide-modalA004').on('click',function(){
+        $('.js-modalA004').removeClass('show-modalA004');
+    });
+   
+    /*[ Show 5 ]*/
+    $('.js-show-modalA005').on('click',function(e){
+        e.preventDefault();
+        $('.js-modalA005').addClass('show-modalA005');
+    });
+    
+
+    $('.js-hide-modalA005').on('click',function(){
+        $('.js-modalA005').removeClass('show-modalA005');
+    });
+
+    /*[ Show 6 ]*/
+    $('.js-show-modalA006').on('click',function(e){
+        e.preventDefault();
+        $('.js-modalA006').addClass('show-modalA006');
+    });
+
+    $('.js-hide-modalA006').on('click',function(){
+        $('.js-modalA006').removeClass('show-modalA006');
+    });
+
+    /*[ Show 7]*/
+
+    $('.js-show-modalA007').on('click',function(e){
+        e.preventDefault();
+        $('.js-modalA007').addClass('show-modalA007');
+    });
+
+    $('.js-hide-modalA007').on('click',function(){
+        $('.js-modalA007').removeClass('show-modalA007');
+    });
+/*[ Show 8 ]*/
+    $('.js-show-modalA008').on('click',function(e){
+        e.preventDefault();
+        $('.js-modalA008').addClass('show-modalA008');
+    });
+
+    $('.js-hide-modalA008').on('click',function(){
+        $('.js-modalA008').removeClass('show-modalA008');
+    });
+
 
 
 })(jQuery);
