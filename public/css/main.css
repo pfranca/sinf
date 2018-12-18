@@ -235,7 +235,7 @@
   background-color: transparent;
   width: 100%;
   height: 84px;
-  top: 40px;
+  top: 0px;
   left: 0px; 
 
   -webkit-transition: height 0.3s, background-color 0.3s;
@@ -269,6 +269,7 @@
   display: -ms-flexbox;
   display: flex;
   align-items: center;
+  justify-content: space-between;
   background-color: transparent;
 }
 
@@ -284,7 +285,6 @@
   display: flex;
   align-items: center;
   height: 65%;
-  margin-right: 55px;
 }
 
 .logo img {
@@ -438,7 +438,7 @@
 [ Icon header ]*/
 
 .wrap-icon-header {
-  flex-grow: 1;
+  flex-grow: 0;
 }
 
 .icon-header-item {
