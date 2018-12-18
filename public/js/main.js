@@ -273,8 +273,8 @@
         $('.js-modal1').addClass('show-modal1');
     });
 
-    $('.js-hide-modal1').on('click',function(){
-        $('.js-modal1').removeClass('show-modal1');
+    $('.js-hide-modalA001').on('click',function(){
+        $('.js-modalA001').removeClass('show-modalA001');
     });
 
 
