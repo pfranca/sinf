@@ -107,11 +107,20 @@
 		});
 
 		/*---------------------------------------------*/
-
+         
 		$('.js-addcart-detail').each(function(){
 			var nameProduct = $(this).parent().parent().parent().parent().find('.js-name-detail').html();
 			$(this).on('click', function(){
-				swal(nameProduct, "is added to cart !", "success");
+				  var $newli1 = $( "<li class='header-cart-item flex-w flex-t m-b-12'> <div class='header-cart-item-img'> <img src='images/A001.jpg' alt='IMG'></div>" );
+                  var $newli2 = $("<div class='header-cart-item-txt p-t-8'> <a href='#'' class='header-cart-item-name m-b-18 hov-cl1 trans-04'> {{Artigo}} </a> ");
+				  var $newli3 = $("<span class='header-cart-item-info'> 1 x $19.00 </span></div></li>");
+				  var $total = $("<div class='header-cart-total w-full p-tb-40'> Total: </div>");
+                   
+				 var total = document.getElementsByClassName('mtext-106 cl2');
+				   $("#idCart").append($newli1,$newli2,$newli3);
+				   $("#totalPrice").append($total);
+				   swal(nameProduct, "is added to cart !", "success");											
+						
 			});
 		});
 	

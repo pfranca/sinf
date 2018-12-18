@@ -17,7 +17,7 @@
         timeout: false,
         timeoutCountdown: 5000,
         onLoadEvent: true,
-        browser: [ 'animation-duration', '-webkit-animation-duration'],
+        browser: [ 'ation-duration', '-webkit-ation-duration'],
         overlay : false,
         overlayClass : 'animsition-overlay-slide',
         overlayParentElement : 'html',
@@ -37,7 +37,7 @@
     });
 
     $('#myBtn').on("click", function(){
-        $('html, body').animate({scrollTop: 0}, 300);
+        $('html, body').ate({scrollTop: 0}, 300);
     });
 
 
@@ -147,7 +147,7 @@
                 itemSelector: '.isotope-item',
                 layoutMode: 'fitRows',
                 percentPosition: true,
-                animationEngine : 'best-available',
+                ationEngine : 'best-available',
                 masonry: {
                     columnWidth: '.isotope-item'
                 }
@@ -337,7 +337,7 @@
     });
 
     $('.js-hide-modalA007').on('click',function(){
-        $('.js-modalA007').removeClass('show-modalA007');
+        $('.js-modalA007').removeClass('show-mozmdidalA007');
     });
 /*[ Show 8 ]*/
     $('.js-show-modalA008').on('click',function(e){

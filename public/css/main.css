@@ -930,7 +930,7 @@
   min-height: 85px;
 }
 
-.header-cart-content {
+. {
   flex-grow: 1;
   overflow: auto;
   align-content: space-between;
