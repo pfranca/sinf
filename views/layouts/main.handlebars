@@ -125,6 +125,7 @@
 				$("#numerozinho").attr('data-notify', numerozinho);
 				var totalPrice = parseFloat($("#totalPrice").html());
 				totalPrice += parseFloat(priceProduct);
+				totalPrice.toFixed(2);
 				$("#idCart").append($newli1);
 				$("#totalPrice").html(totalPrice);
 				swal(nameProduct, "is added to cart !", "success");											
