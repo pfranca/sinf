@@ -336,7 +336,7 @@
     });
 
     $('.js-hide-modalA007').on('click',function(){
-        $('.js-modalA007').removeClass('show-mozmdidalA007');
+        $('.js-modalA007').removeClass('show-modalA007');
     });
 /*[ Show 8 ]*/
     $('.js-show-modalA008').on('click',function(e){
