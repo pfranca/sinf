@@ -46,6 +46,7 @@ router.post('/create-user', (req, res) => {
             return;
         }
 
+        res.send(body);
         console.log(body);
         });
     }
