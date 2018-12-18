@@ -62,6 +62,7 @@ mongoose.connect(dbConfig.url, {
 global.url = "http://localhost:2018/WebApi/";
 global.token = "";
 
+
 //A função abaixo corre sempre que é feito um pedido a qualquer rota de forma a definir um token
 //a ser usado a nivel global
 app.use(async (req, res, next) =>{

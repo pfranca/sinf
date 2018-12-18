@@ -2271,12 +2271,12 @@ input.num-product::-webkit-inner-spin-button {
 }
 
 .table-shopping-cart .column-1 {
-  width: 133px;
+  width: 250px;
   padding-left: 50px;
 }
 
 .table-shopping-cart .column-2 {
-  width: 220px;
+  width: 100px;
   font-size: 15px;
 }
 
