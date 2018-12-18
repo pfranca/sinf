@@ -1845,7 +1845,25 @@ input.num-product::-webkit-inner-spin-button {
   opacity: 0;
 }
 
-.overlay-modal1 {
+.wrap-modalA001 {
+  position: fixed;
+  width: 100%;
+  height: 100vh;
+  top: 0;
+  left: 0;
+  z-index: 9000;
+  overflow: auto;
+
+  -webkit-transition: all 0.4s;
+  -o-transition: all 0.4s;
+  -moz-transition: all 0.4s;
+  transition: all 0.4s;
+
+  visibility: hidden;
+  opacity: 0;
+}
+
+.overlay-modalA001 {
   position: fixed;
   z-index: -1;
   width: 100%;
@@ -1856,7 +1874,7 @@ input.num-product::-webkit-inner-spin-button {
   opacity: 0.8;
 }
 
-.show-modal1 {
+.show-modalA001 {
   visibility: visible;
   opacity: 1;
 }

@@ -110,15 +110,15 @@
 
 
     /*==================================================================
-    [ Show / hide modal search ]*/
-    $('.js-show-modal-search').on('click', function(){
-        $('.modal-search-header').addClass('show-modal-search');
+    [ Show / hide  search ]*/
+    $('.js-show--search').on('click', function(){
+        $('.-search-header').addClass('show--search');
         $(this).css('opacity','0');
     });
 
-    $('.js-hide-modal-search').on('click', function(){
-        $('.modal-search-header').removeClass('show-modal-search');
-        $('.js-show-modal-search').css('opacity','1');
+    $('.js-hide--search').on('click', function(){
+        $('.-search-header').removeClass('show--search');
+        $('.js-show--search').css('opacity','1');
     });
 
     $('.container-search-header').on('click', function(e){
@@ -267,10 +267,10 @@
     });
     
     /*==================================================================
-    [ Show modal1 ]*/
-    $('.js-show-modal1').on('click',function(e){
+    [ Show 1 ]*/
+    $('.js-show-modalA001').on('click',function(e){
         e.preventDefault();
-        $('.js-modal1').addClass('show-modal1');
+        $('.js-modalA001').addClass('show-modalA001');
     });
 
     $('.js-hide-modalA001').on('click',function(){
