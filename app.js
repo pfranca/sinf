@@ -19,7 +19,10 @@ var authRouter = require('./routes/auth');
 var app = express();
 
 // view engine setup
-app.engine('handlebars', exphbs({default: 'home'}));
+app.set('views', path.join(__dirname, 'views'));
+app.engine('handlebars', exphbs({
+    defaultLayout: 'main'
+}));
 app.set('view engine', 'handlebars');
 
 app.use(logger('dev'));
@@ -58,7 +61,6 @@ mongoose.connect(dbConfig.url, {
 //URL base da API
 global.url = "http://localhost:2018/WebApi/";
 global.token = "";
-
 
 //A função abaixo corre sempre que é feito um pedido a qualquer rota de forma a definir um token
 //a ser usado a nivel global
