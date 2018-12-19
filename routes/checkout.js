@@ -57,7 +57,7 @@ router.get('/addUser', function(req,res){
         headers:
             {
                 'cache-control': 'no-cache',
-                Authorization: 'Bearer ' + token,
+                Authorization: 'Bearer ' + req.session.token,
                 'Content-Type': 'application/json' }};
 
 
@@ -76,7 +76,7 @@ router.get('/addUser', function(req,res){
                 headers:
                     {
                         'cache-control': 'no-cache',
-                        Authorization: 'Bearer ' + token,
+                        Authorization: 'Bearer ' + req.session.token,
                         'Content-Type': 'application/json' },
                 body:
                 {
@@ -151,7 +151,7 @@ router.get('/:item',function(req,res){
         headers:
             {
                 'cache-control': 'no-cache',
-                Authorization: 'Bearer ' + token,
+                Authorization: 'Bearer ' + req.session.token,
                 'Content-Type': 'application/json' },
         body: final,
         json: true };
@@ -173,7 +173,7 @@ router.get('/user-exists/:user',function(req,res){
         headers:
             {
                 'cache-control': 'no-cache',
-                Authorization: 'Bearer ' + token,
+                Authorization: 'Bearer ' + req.session.token,
                 'Content-Type': 'application/json' }};
 
     request(options, (error, response, body) => {
@@ -195,7 +195,7 @@ router.get('/user-items/:user',function(req,res){
         headers:
             {
                 'cache-control': 'no-cache',
-                Authorization: 'Bearer ' + token,
+                Authorization: 'Bearer ' + req.session.token,
                 'Content-Type': 'application/json' },
         body: 'SELECT AM.Artigo,A.Descricao,AM.PVP1,AA.StkActual FROM Artigo A,ArtigoMoeda AM INNER JOIN V_INV_ArtigoArmazem AA ON AM.Artigo = AA.Artigo WHERE AA.StkActual>0 AND AM.Artigo IN (\'{{idProduct1}}\', \'{{idProduct2}}\')',
         json: true };
@@ -219,7 +219,7 @@ router.get('/new-user',function(req,res){
         headers:
             {
                 'cache-control': 'no-cache',
-                Authorization: 'Bearer ' + token,
+                Authorization: 'Bearer ' + req.session.token,
                 'Content-Type': 'application/json' },
         body:
             {

@@ -11,7 +11,7 @@ router.get('/product-list',function(req,res){
         headers:
             {
                 'cache-control': 'no-cache',
-                Authorization: 'Bearer ' + token,
+                Authorization: 'Bearer ' + req.session.token,
                 'Content-Type': 'application/json' },
         body: 'SELECT A.Artigo,A.Descricao,AM.PVP1,AA.StkActual FROM Artigo A,ArtigoMoeda AM , V_INV_ArtigoArmazem AA WHERE A.Artigo=AA.Artigo AND A.Artigo=AM.Artigo',
         json: true };
@@ -44,7 +44,7 @@ router.get('/:id',function(req,res){
         headers:
             {
                 'cache-control': 'no-cache',
-                Authorization: 'Bearer ' + token,
+                Authorization: 'Bearer ' + req.session.token,
                 'Content-Type': 'application/json' },
         body: 'SELECT AM.Artigo,A.Descricao,AM.PVP1,AA.StkActual, A.Observacoes FROM Artigo A,ArtigoMoeda AM INNER JOIN V_INV_ArtigoArmazem AA ON AM.Artigo = AA.Artigo WHERE AM.Artigo=\''+id+'\'',
         json: true };

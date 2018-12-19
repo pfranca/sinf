@@ -13,7 +13,7 @@ var user = new Schema(
         country: String,
         currency: String,
         body: String,
-        cart: Buffer
+        cart: [{id: String, qty: Number}],
     },
     {
         timestamps: true

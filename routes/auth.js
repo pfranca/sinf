@@ -42,6 +42,18 @@ router.post('/login', (req, res) => {
         } else if (!usr.comparePassword(password)) {
             res.redirect('back');
         } else {
+            if(usr.cart){
+                req.session.cart = usr.cart;
+            }
+            else{
+                usr.cart = req.session.cart.products;
+                usr.save(function (err) {
+                    if (err){
+                        console.log('Erro guardar carrinho: ');
+                        console.log(err);
+                    }
+                });
+            }
             req.session.user = usr;
             req.session.save();
             res.redirect('/');
@@ -71,10 +83,27 @@ router.post('/login', (req, res) => {
 // });
 
 router.get('/logout', (req, res) => {
+    const username = req.session.user.name;
+
+    User.findOne({ name:  username }, function(err,usr) {
+        if (usr) {
+            usr.cart = req.session.cart.products;
+            usr.save(function (err) {
+                if (err){
+                    console.log('Erro guardar carrinho[logout]: ');
+                    console.log(err);
+                }
+            });
+        }
+    
+    
+    
+    });
+    var token = req.session.token;
     res.clearCookie('user_sid');
+    req.session.token = token;
     res.redirect('/auth/login');
 });
-
 
 module.exports = router;
 
@@ -85,7 +114,7 @@ module.exports = router;
             headers: 
             {
                 'cache-control': 'no-cache',
-                Authorization: 'Bearer ' + token,
+                Authorization: 'Bearer '+ req.session.token,
                 'Content-Type': 'application/json' },
             body: 
             { Cliente: username,

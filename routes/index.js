@@ -4,7 +4,7 @@ var router = express.Router();
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-    console.log('entrou no index');
+    console.log('[INDEX]');
     console.log('USER: ');
     console.log(req.session.user);
     console.log('TOKEN: ');
@@ -29,7 +29,6 @@ request(options, (error, response, body) => {
     }
     
     if(body.DataSet != undefined){
-        console.log('DEU!');
         res.render('home', {
             products:body.DataSet.Table
         });
