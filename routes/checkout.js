@@ -6,42 +6,6 @@ router.get('/',function(req,res){
     res.render('checkout', {layout: false});
 });
 
-router.get('/addUser', function(req,res){
-   // console.log(req.params.firstName);
-    console.log(req.body.firstName);
-/*
-    var options = {
-        method: 'POST',
-        url: url + 'Base/Clientes/Actualiza',
-        headers:
-            {
-                'cache-control': 'no-cache',
-                Authorization: 'Bearer ' + token,
-                'Content-Type': 'application/json' },
-               body:
-                {
-                    "Cliente": req.params.username,
-                    "Nome": req.param.username,
-                    "Descricao": "WebStoreUser"+username,
-                    "Morada": req.params.morada,
-                    "Localidade": req.params.local,
-                    "CodigoPostal": req.param.postal,
-                    "LocalidadeCodigoPostal": req.param.city,
-                    "NumContribuinte": req.params.nif,
-                    "Pais": req.params.country,
-                    "Moeda": "EUR"
-                },
-                
-        json:true
-        };
-        
-
-    request(options, (error, response, body) => {
-        });
-        */
-    res.redirect("/");
-});
-
 
 //Stock
 
@@ -85,7 +49,8 @@ router.get('/',function(req,res){
     });
 });
 
-router.get('/first-step', function(req,res){
+router.get('/addUser', function(req,res){
+    console.log(req.body.firstName);
     let options = {
         method: 'GET',
         url: url + 'Base/Clientes/Existe/' + req.body.username,
@@ -103,8 +68,8 @@ router.get('/first-step', function(req,res){
             return;
         }
         if (body == 'false'){
-            let username = req.body.username;
-            var fiscalNr = "2" + Math.floor(Math.random() * 100000000);
+            let username = req.body.firstName + " " + req.body.lastName;
+            //var fiscalNr = "2" + Math.floor(Math.random() * 100000000);
             let options = {
                 method: 'POST',
                 url: url + 'Base/Clientes/Actualiza',
@@ -114,10 +79,18 @@ router.get('/first-step', function(req,res){
                         Authorization: 'Bearer ' + token,
                         'Content-Type': 'application/json' },
                 body:
-                { Cliente: username,
-                    Nome: username,
-                    NumContribuinte: fiscalNr,
-                    Moeda: 'EUR' },
+                {
+                    "Cliente": username,
+                    "Nome": username,
+                    "Descricao": "WebStoreUser"+username,
+                    "Morada": req.body.morada,
+                    "Localidade": req.body.local,
+                    "CodigoPostal": req.body.postal,
+                    "LocalidadeCodigoPostal": req.body.city,
+                    "NumContribuinte": req.body.nif,
+                    "Pais": req.body.country,
+                    "Moeda": "EUR"
+                },
                 json: true
              };
         
@@ -132,6 +105,8 @@ router.get('/first-step', function(req,res){
         }
         else
             res.send('client exists');
+
+        //res.redirect("/");
     });
 
 });
