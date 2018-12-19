@@ -9,7 +9,7 @@ router.get('/',function(req,res){
 
 
 //Stock
-/*
+
 var queryHasSock="SELECT AM.Artigo,A.Descricao,AM.PVP1,AA.StkActual FROM Artigo A,ArtigoMoeda AM INNER JOIN V_INV_ArtigoArmazem AA ON AM.Artigo = AA.Artigo WHERE AM.Artigo='";
 var endQueryHasStock="ORDER BY AM.Artigo";
 
@@ -236,7 +236,5 @@ router.get('/new-user',function(req,res){
         res.send(body);
     });
 });
-
-*/
 
 module.exports = router;
