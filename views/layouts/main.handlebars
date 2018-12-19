@@ -20,6 +20,7 @@
           crossorigin="anonymous">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/material-design-iconic-font/2.2.0/css/material-design-iconic-font.min.css">
         <link rel="stylesheet" href="https://cdn.linearicons.com/free/1.0.0/icon-font.min.css">
+<<<<<<< HEAD
         <link rel="stylesheet" type="text/css" href="/css/template/animate.css">
         <link rel="stylesheet" type="text/css" href="/css/template/hamburgers.min.css">
         <link rel="stylesheet" type="text/css" href="/css/template/animsition/animsition.min.css">
@@ -30,6 +31,19 @@
         <link rel="stylesheet" type="text/css" href="/css/template/perfect-scrollbar/perfect-scrollbar.css">
         <link rel="stylesheet" type="text/css" href="/css/util.css">
 	<link rel="stylesheet" type="text/css" href="/css/main.css">
+=======
+        <link rel="stylesheet" type="text/css" href="css/template/animate.css">
+        <link rel="stylesheet" type="text/css" href="css/template/hamburgers.min.css">
+        <link rel="stylesheet" type="text/css" href="css/template/animsition/animsition.min.css">
+        <link rel="stylesheet" type="text/css" href="css/template/select2/select2.min.css">
+        <link rel="stylesheet" type="text/css" href="css/template/daterangepicker/daterangepicker.css">
+        <link rel="stylesheet" type="text/css" href="css/template/slick/slick.css">
+        <link rel="stylesheet" type="text/css" href="css/template/MagnificPopup/magnific-popup.css">
+        <link rel="stylesheet" type="text/css" href="css/template/perfect-scrollbar/perfect-scrollbar.css">
+        <link rel="stylesheet" type="text/css" href="css/util.css">
+	<link rel="stylesheet" type="text/css" href="css/main.css">
+	<link rel="stylesheet" href="css/style.css">
+>>>>>>> modals
 </head>
 
 <body class="animsition">
@@ -259,14 +273,21 @@
 			var priceProduct = $(this).parent().parent().parent().parent().find('.js-price-detail').html();
 			var idProduct = $(this).parent().parent().parent().parent().find('.js-id-detail').html();
 			
+
 		
 			$(this).on('click', function(){
 				  var $newli1 = $( "<li class='header-cart-item flex-w flex-t m-b-12'> <div class='header-cart-item-img'> <img src='images/"+idProduct+".jpg' alt='IMG'></div><div class='header-cart-item-txt p-t-8'> <a href='#'' class='header-cart-item-name m-b-18 hov-cl1 trans-04'> "+nameProduct+" </a><span class='header-cart-item-info'> 1 x $"+priceProduct+" </span></div></li>" );
 				  //var $total = $("<div class='header-cart-total w-full p-tb-40'> Total: </div>");
 				var socket = io();
 				socket.emit ('addToCart', {id: idProduct, qty: 1}); //todo HARDCODED
+				
+				var numerozinho = parseInt($("#numerozinho").attr('data-notify'))
+				numerozinho += 1;
+
+				$("#numerozinho").attr('data-notify', numerozinho);
 				var totalPrice = parseFloat($("#totalPrice").html());
 				totalPrice += parseFloat(priceProduct);
+				totalPrice.toFixed(2);
 				$("#idCart").append($newli1);
 				$("#totalPrice").html(totalPrice);
 				swal(nameProduct, "is added to cart !", "success");											

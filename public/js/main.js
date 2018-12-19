@@ -1,4 +1,8 @@
 
+
+
+
+
 (function ($) {
     "use strict";
 
@@ -347,6 +351,7 @@
     $('.js-hide-modalA008').on('click',function(){
         $('.js-modalA008').removeClass('show-modalA008');
     });
+
 
 
 
