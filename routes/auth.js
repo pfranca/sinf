@@ -23,32 +23,7 @@ router.post('/create-user', (req, res) => {
             else 
             console.log('----SAVED USER----');
         });
-        console.log(username);
-        console.log(fiscalNr);
-        //criar cliente primavera
-        let options = { method: 'POST',
-            url: url + 'Base/Clientes/Actualiza',
-            headers: 
-            {
-                'cache-control': 'no-cache',
-                Authorization: 'Bearer ' + token,
-                'Content-Type': 'application/json' },
-            body: 
-            { Cliente: username,
-                Nome: username,
-                NumContribuinte: fiscalNr,
-                Moeda: 'EUR' },
-            json: true };
-
-        request(options, function (error, response, body) {
-        if (error){
-            console.error("erro" + error);
-            return;
-        }
-
-        res.send(body);
-        console.log(body);
-        });
+        
     }
 });
 
