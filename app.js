@@ -74,7 +74,7 @@ app.use(async (req, res, next) =>{
             grant_type: 'password',
             line: 'professional'
         };
-        request.post({url: url+"token", form:params}, (error, response, body) => {
+        request.post({url: url+"token", form:params}, await function(error, response, body) {
             if (error) {
                 console.log('ERRO NO TOKEN');
                 console.error(error);
@@ -89,7 +89,6 @@ app.use(async (req, res, next) =>{
     }
     next();
 });
-
 
 
 //Ligação à base de dados
@@ -120,14 +119,20 @@ io.on('connection', function(socket){
         console.log('Qty: ');
         console.log(productQty);
 
-        socket.handshake.session.cart.products.push({id: productId,qty: productQty});
+        socket.handshake.session.cart.products.push({
+            id: productId,
+            qty: productQty
+        });
         socket.handshake.session.save();
-        
+    
       });
   });
 
+  app.use((req, res, next) => {
+    res.locals.user = req.session.user;
+    next();
+  });
 
-  
 app.use('/', indexRouter);
 app.use('/cart', cartRouter);
 app.use('/checkout',checkoutRouter);
