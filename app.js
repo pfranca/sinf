@@ -18,6 +18,10 @@ var productsRouter = require('./routes/products');
 var authRouter = require('./routes/auth');
 var app = express();
 
+//URL base da API
+global.url = "http://localhost:2018/WebApi/";
+global.token = "";
+
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.engine('handlebars', exphbs({
@@ -41,32 +45,51 @@ app.use(session({
 }));
 
 app.use((req, res, next) => {
-    if (req.cookies.user_sid && !req.session.user) {
-        res.clearCookie('user_sid');
+    // if (req.cookies.user_sid && !req.session.user) {
+    //     res.clearCookie('user_sid');
+    // }
+    if(!req.session.cart){
+        req.session.cart= {
+            products: {}
+        }
+        req.session.save();
     }
     next();
 });
-
-//Ligação à base de dados
-mongoose.Promise = global.Promise;
-mongoose.connect(dbConfig.url, {
-    useNewUrlParser: true
-}).then(() => {
-    console.log("Successfully connected to the database");
-}).catch(err => {
-    console.log('Could not connect to the database. Exiting now...', err);
-    process.exit();
-});
-
-//URL base da API
-global.url = "http://localhost:2018/WebApi/";
-global.token = "";
 
 
 //A função abaixo corre sempre que é feito um pedido a qualquer rota de forma a definir um token
 //a ser usado a nivel global
 app.use(async (req, res, next) =>{
-    fs.readFile('token.txt', function(err, data) {
+    console.log('Entrou na funcao do token');
+    if(!req.session.token){
+        console.log('Entrou no if do token');
+        let params ={
+            username: 'FEUP',
+            password: 'qualquer1',
+            company: 'TRUTAS',
+            instance: 'DEFAULT',
+            grant_type: 'password',
+            line: 'professional'
+        };
+        console.log('WTF1');
+        request.post({url: url+"token", form:params}, (error, response, body) => {
+            console.log('WTF2');
+            if (error) {
+                console.log('ERRO NO TOKEN')
+                console.error(error);
+                return;
+            } else {
+                jsonArray = JSON.parse(body);
+                req.session.token = jsonArray["access_token"];
+                req.session.save();
+                console.log('Saved!');
+            }
+        });
+    }
+
+
+   /*  fs.readFile('token.txt', function(err, data) {
         if(err){
             global.token = "";
             return;
@@ -100,9 +123,22 @@ app.use(async (req, res, next) =>{
                 });
             }
         });
-    }
+    } */
+    
     next();
+});
 
+
+
+//Ligação à base de dados
+mongoose.Promise = global.Promise;
+mongoose.connect(dbConfig.url, {
+    useNewUrlParser: true
+}).then(() => {
+    console.log("Successfully connected to the database");
+}).catch(err => {
+    console.log('Could not connect to the database. Exiting now...', err);
+    process.exit();
 });
 
 app.use('/', indexRouter);

@@ -5,6 +5,9 @@ var router = express.Router();
 
 
 router.get('/',function(req,res){
+    console.log('entrou no cart');
+    console.log('USER: ');
+    console.log(req.session.user);
 res.render('cart');
 /*     var options = {
         method: 'POST',
