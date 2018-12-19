@@ -5,6 +5,10 @@ var router = express.Router();
 
 
 router.get('/',function(req,res){
+    console.log('entrou no cart');
+    console.log('USER: ');
+    console.log(req.session.user);
+    
     var options = {
         method: 'POST',
         url: url + 'Administrador/Consulta',
@@ -65,6 +69,7 @@ router.get('/',function(req,res){
         res.send(body);
     }); */
 });
+
 
 module.exports = router;
 

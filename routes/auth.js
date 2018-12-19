@@ -1,53 +1,30 @@
 const express = require('express');
 var User = require('../models/user');
 var request = require('request');
-const router = express.Router();
+var router = express.Router();
 
 /* Create User */
 //TODO adicionar dados sobre user
-router.get('/create-user', (req, res) => {
-    res.render('addUser');
+router.get('/register', (req, res) => {
+    res.render('register');
 });
-router.post('/create-user', (req, res) => {
+router.post('/register', (req, res) => {
     var username = req.body.username;
     var password = req.body.password;
     var password_repeat = req.body.password_repeat;
-    var fiscalNr = "2" + Math.floor(Math.random() * 100000000);
+
     if(password === password_repeat) {
         var new_usr = new User({
             name: username,
             password: password,
         });
         new_usr.save(function (err) {
-            if (err) console.log(err);
-            else 
-            console.log('----SAVED USER----');
-        });
-        console.log(username);
-        console.log(fiscalNr);
-        //criar cliente primavera
-        let options = { method: 'POST',
-            url: url + 'Base/Clientes/Actualiza',
-            headers: 
-            {
-                'cache-control': 'no-cache',
-                Authorization: 'Bearer ' + token,
-                'Content-Type': 'application/json' },
-            body: 
-            { Cliente: username,
-                Nome: username,
-                NumContribuinte: fiscalNr,
-                Moeda: 'EUR' },
-            json: true };
-
-        request(options, function (error, response, body) {
-        if (error){
-            console.error("erro" + error);
-            return;
-        }
-
-        res.send(body);
-        console.log(body);
+            if (err) res.redirect('back');
+            else{
+                req.session.user = new_usr;
+                req.session.save();
+                res.redirect('/');
+            }
         });
     }
 });
@@ -65,12 +42,13 @@ router.post('/login', (req, res) => {
         } else if (!usr.comparePassword(password)) {
             res.redirect('back');
         } else {
-            req.session.user = usr.dataValues;
+            req.session.user = usr;
+            req.session.save();
             res.redirect('/');
         }
     });
 });
-//
+
 // router.get('/change-password', (req, res) => {
 //     res.render('changePassword');
 // });
@@ -99,3 +77,29 @@ router.get('/logout', (req, res) => {
 
 
 module.exports = router;
+
+
+/*         //criar cliente primavera
+        let options = { method: 'POST',
+            url: url + 'Base/Clientes/Actualiza',
+            headers: 
+            {
+                'cache-control': 'no-cache',
+                Authorization: 'Bearer ' + token,
+                'Content-Type': 'application/json' },
+            body: 
+            { Cliente: username,
+                Nome: username,
+                NumContribuinte: fiscalNr,
+                Moeda: 'EUR' },
+            json: true };
+
+        request(options, function (error, response, body) {
+        if (error){
+            console.error("erro" + error);
+            return;
+        }
+
+        console.log(body);
+        });
+ */
