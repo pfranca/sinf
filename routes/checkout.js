@@ -2,7 +2,14 @@ var express = require('express');
 var request = require('request');
 var router = express.Router();
 
+router.get('/',function(req,res){
+    res.render('checkout', {layout: false});
+});
+
+
+
 //Stock
+/*
 var queryHasSock="SELECT AM.Artigo,A.Descricao,AM.PVP1,AA.StkActual FROM Artigo A,ArtigoMoeda AM INNER JOIN V_INV_ArtigoArmazem AA ON AM.Artigo = AA.Artigo WHERE AM.Artigo='";
 var endQueryHasStock="ORDER BY AM.Artigo";
 
@@ -181,6 +188,6 @@ router.get('/new-user',function(req,res){
     });
 });
 
-
+*/
 
 module.exports = router;
