@@ -9,6 +9,8 @@ router.get('/', function(req, res, next) {
     console.log(req.session.user);
     console.log('TOKEN: ');
     console.log(req.session.token);
+    console.log('CART: ');
+    console.log(req.session.cart.products);
   var options = {
     method: 'POST',
     url: url + 'Administrador/Consulta',
