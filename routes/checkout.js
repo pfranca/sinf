@@ -6,6 +6,41 @@ router.get('/',function(req,res){
     res.render('checkout', {layout: false});
 });
 
+router.get('/addUser', function(req,res){
+   // console.log(req.params.firstName);
+    console.log(req.body.firstName);
+/*
+    var options = {
+        method: 'POST',
+        url: url + 'Base/Clientes/Actualiza',
+        headers:
+            {
+                'cache-control': 'no-cache',
+                Authorization: 'Bearer ' + token,
+                'Content-Type': 'application/json' },
+               body:
+                {
+                    "Cliente": req.params.username,
+                    "Nome": req.param.username,
+                    "Descricao": "WebStoreUser"+username,
+                    "Morada": req.params.morada,
+                    "Localidade": req.params.local,
+                    "CodigoPostal": req.param.postal,
+                    "LocalidadeCodigoPostal": req.param.city,
+                    "NumContribuinte": req.params.nif,
+                    "Pais": req.params.country,
+                    "Moeda": "EUR"
+                },
+                
+        json:true
+        };
+        
+
+    request(options, (error, response, body) => {
+        });
+        */
+    res.redirect("/");
+});
 
 
 //Stock
