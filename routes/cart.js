@@ -9,7 +9,7 @@ router.get('/',function(req,res){
     console.log('USER: ');
     console.log(req.session.user);
     console.log('TOKEN: ');
-    console.log(req.session.token);
+    console.log(token);
     console.log('CART: ');
     console.log(req.session.cart.products);
 
@@ -30,7 +30,7 @@ router.get('/',function(req,res){
         headers:
             {
                 'cache-control': 'no-cache',
-                Authorization: 'Bearer ' + req.session.token,
+                Authorization: 'Bearer ' + token,
                 'Content-Type': 'application/json' },
         body: query,
         json: true };
@@ -70,7 +70,7 @@ router.get('/',function(req,res){
         headers:
             {
                 'cache-control': 'no-cache',
-                Authorization: 'Bearer ' + req.session.token,
+                Authorization: 'Bearer ' + token,
                 'Content-Type': 'application/json' },
         body: "SELECT AM.Artigo,A.Descricao,AM.PVP1,AA.StkActual FROM Artigo A,ArtigoMoeda AM INNER JOIN V_INV_ArtigoArmazem AA ON AM.Artigo = AA.Artigo WHERE AM.Artigo IN (\'A0001\', \'A0002\')",
         json: true };
