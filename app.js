@@ -26,6 +26,7 @@ var cartRouter = require('./routes/cart');
 var checkoutRouter = require('./routes/checkout');
 var productsRouter = require('./routes/products');
 var authRouter = require('./routes/auth');
+var testRouter = require('./routes/testWebApiCalls');
 var app = express();
 var io = socket_io();
 app.io = io;
@@ -103,6 +104,7 @@ app.use('/cart', cartRouter);
 app.use('/checkout',checkoutRouter);
 app.use('/products',productsRouter);
 app.use('/auth',authRouter);
+app.use('/test',testRouter);
 
 app.getToken = function(){
     console.log('----GET TOKEN----');
