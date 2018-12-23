@@ -4,11 +4,34 @@ var request = require('request');
 var router = express.Router();
 
 
+
+
 router.get('/',function(req,res){
 
-  
-    var options = { method: 'POST',
-        url: url + 'Vendas/Docs/CreateDocument/',
+    let nrDoc = 0;
+
+    var options = {
+        method: 'POST',
+        url: url + 'Administrador/Consulta',
+        headers:
+            {
+                'cache-control': 'no-cache',
+                Authorization: 'Bearer ' + token,
+                'Content-Type': 'application/json' },
+        body: "SELECT CONVERT(VARCHAR(10),cd.Data,103), cd.TotalMerc, cd.TotalDocumento, cd.ModoPag, cd.NumContribuinte, cd.CodPostalEntrega, cd.TipoDoc, cd.Serie, cd.NumDoc FROM CabecDoc cd WHERE cd.TipoDoc='ECL' ORDER BY cd.NumDoc",
+        json: true };
+
+        
+    
+    request(options, (error, response, body) => {
+        if(error){
+            console.error("erro" + error);
+            return;
+        }
+
+        nrDoc = body.DataSet.Table.length;
+        options2 = { method: 'POST',
+        url: url + 'Vendas/Docs/TransformDocument/ECL/A/'+nrDoc+'/000/true',
         headers:
             {
                 'cache-control': 'no-cache',
@@ -16,30 +39,24 @@ router.get('/',function(req,res){
                 'Content-Type': 'application/json' },
         body:
             {
-                Linhas:
-                    [
-                        { Artigo: 'A001', Quantidade: '1' },
-                        { Artigo: 'A002', Quantidade: '1' }
-
-                        ],
-                Tipodoc: 'ECL',
-                Entidade: 'aa',
-                TipoEntidade: 'C',
-                CondPag: '2',
-                ModoPag: 'PGNUM',
-                MoradaEntrega: 'yaya',
-                LocalidadeEntrega: 'Porto',
-                CodPostalEntrega: '4200-161'
-
+                Tipodoc: 'FA',
+                Serie: 'A',
+                Entidade: 'NOVOTESTE',
+                TipoEntidade: 'C'
             },
-        json: true
-    };
-
-    request(options, function (error, response, body) {
-        if (error) throw new Error(error);
-        res.send(body);
-
+    
+        json: true };
+    
+        request(options2, function (error, response, body) {
+            if (error) throw new Error(error);
+            console.log(options.url)
+            res.send(body);
+    
+        });
     });
+        
+
+    
 });
 
 

@@ -3,7 +3,6 @@ var request = require('request');
 var router = express.Router();
 
 
-
 router.get('/',function(req,res){    
     res.render('checkout', {layout: false});
 });
@@ -101,21 +100,42 @@ router.get('/confirmOrder',function(req,res){
 
 router.post('/createECL',function(req,res){
 
+    let linhas = [];
+    var products = req.session.cart.products;
+    if(products.length == 0){
+        res.redirect('back');
+    }
+    else{
+    products.forEach(element => {
+        let artigo = {};
+        artigo.Artigo = element.id;
+        artigo.Quantidade = element.qty;
+        linhas.push(artigo);
+    });
+    console.log("LINHAS");
+    console.log(linhas);
 
-    var options = {
-        method: 'POST',
-        url: url + '...',
+
+    var options = { method: 'POST',
+        url: url + 'Vendas/Docs/CreateDocument/',
         headers:
             {
                 'cache-control': 'no-cache',
-                Authorization: 'Bearer ' + token,
+                Authorization: 'Bearer '+token,
                 'Content-Type': 'application/json' },
         body:
             {
-                
+                Linhas: linhas,
+                Tipodoc: 'ECL',
+                Entidade: req.session.user.name,
+                TipoEntidade: 'C',
+                CondPag: '2',
+                ModoPag: 'PGNUM',
+                CodPostalEntrega: '4200-161'
+
             },
         json: true
-        };
+    };
 
     request(options, (error, response, body) => {
         if(error){
@@ -126,15 +146,69 @@ router.post('/createECL',function(req,res){
         console.log(body)
         res.redirect('payment')
     });
+}
 
 });   
 
 
 router.get('/payment',function(req,res){
 
-    
     res.render('checkoutPayment', {layout: false});
 });
+
+router.post('/transformDoc',function(req,res){
+    
+    let nrDoc = 0;
+
+
+    var options = {
+        method: 'POST',
+        url: url + 'Administrador/Consulta',
+        headers:
+            {
+                'cache-control': 'no-cache',
+                Authorization: 'Bearer ' + token,
+                'Content-Type': 'application/json' },
+        body: "SELECT CONVERT(VARCHAR(10),cd.Data,103), cd.TotalMerc, cd.TotalDocumento, cd.ModoPag, cd.NumContribuinte, cd.CodPostalEntrega, cd.TipoDoc, cd.Serie, cd.NumDoc FROM CabecDoc cd WHERE cd.TipoDoc='ECL' ORDER BY cd.NumDoc",
+        json: true };
+    
+    request(options, (error, response, body) => {
+        if(error){
+            console.error("erro" + error);
+            return;
+        }
+        nrDoc = body.DataSet.Table.length;
+        options2 = { method: 'POST',
+        url: url + "Vendas/Docs/TransformDocument/ECL/A/"+nrDoc+"/000/true",
+        headers:
+            {
+                'cache-control': 'no-cache',
+                Authorization: 'Bearer '+token,
+                'Content-Type': 'application/json' },
+        body:
+            {
+                Tipodoc: 'FA',
+                Serie: 'A',
+                Entidade: req.session.user.name,
+                TipoEntidade: 'C',
+                DataDoc: '23/12/2018'
+            },
+    
+        json: true };
+    
+        request(options2, function (error, response, body) {
+            if(error){
+    
+                console.error('erro' + error);
+                res.redirect('back');
+            }
+            console.log(body)
+            res.redirect('/')
+        });
+    });
+        
+});
+
 
 
 
