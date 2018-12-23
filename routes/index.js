@@ -1,3 +1,4 @@
+let Product = require('../models/product');
 var express = require('express');
 var request = require('request');
 var router = express.Router();
@@ -29,6 +30,9 @@ request(options, (error, response, body) => {
     }
     
     if(body.DataSet != undefined){
+        body.DataSet.Table.forEach(element => {
+            populateProducts(element);
+        });
         res.render('home', {
             products:body.DataSet.Table
         });
@@ -38,4 +42,35 @@ request(options, (error, response, body) => {
 });
 });
 
+
+function populateProducts(product){
+    Product.findOne({ erpId: product.Artigo}, function(err,prdct) {
+        if(err) console.log(err);
+        else{
+            if(!prdct){
+                var new_product = new Product({
+                    erpId: product.Artigo,
+                    name: product.Descricao,
+                    price: product.PVP1,
+                    stock: product.StkAtual,
+                    details: product.Observacoes
+                });
+                new_product.save(function(err){
+                    if(err) console.log(err);
+                });
+            }
+            else{
+                prdct.stock = product.StkAtual;
+                prdct.name = product.Descricao;
+                prdct.price = product.PVP1;
+                prdct.stock = product.StkAtual;
+                prdct.details = product.Observacoes;
+                prdct.save(function (err) {
+                    if (err) console.log(err);
+                });
+        }
+    }
+    });
+
+}
 module.exports = router;

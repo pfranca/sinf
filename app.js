@@ -80,21 +80,39 @@ mongoose.connect(dbConfig.url, {
 
   io.on('connection', function(socket){
     console.log('a user connected');
+   
+    
     socket.on('addToCart', function(data){
         let productId = data.id;
-        let productQty = data.qty;
-    
-        console.log('id: ');
-        console.log(productId);
-        console.log('Qty: ');
-        console.log(productQty);
+        let productQty = parseInt(data.qty);
 
-        socket.handshake.session.cart.products.push({
-            id: productId,
-            qty: productQty
-        });
+        let entry = socket.handshake.session.cart.products.find(entry => entry.id === productId);  
+        if(entry) {
+            entry.qty = entry.qty + productQty;
+        }
+        else{
+            socket.handshake.session.cart.products.push({
+                id: productId,
+                qty: productQty
+            });
+        }
         socket.handshake.session.save();
-    
+        
+
+        let promises =  [];
+        socket.handshake.session.cart.products.forEach(function(cart_entry){
+            let cart_line = findProd(cart_entry.id,cart_entry.qty);
+            promises.push(cart_line);
+        });
+
+
+        Promise.all(promises).then(function(products) {
+            let total = 0;
+            products.forEach(function(entry){
+            total = total + entry.qtyProduct * entry.priceProduct;
+            });
+            socket.emit ('refresh_cart', {products:products, total:total});
+          });
       });
   });
 
@@ -127,7 +145,22 @@ app.getToken = function(){
         console.log(token);
         return token;
     });
-}
+};
 
+function findProd(id,qty){
+    let Product = require('./models/product');
+    return Product.findOne({ erpId: id})
+    .exec()
+    .then((prdct) => {
+        var tmp = {
+            nameProduct: prdct.name,
+            priceProduct: prdct.price,
+            idProduct : id,
+            qtyProduct: qty
+        };
+        return tmp;
+    });
+    
+}
 
 module.exports = app;

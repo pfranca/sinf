@@ -15,6 +15,7 @@
 			
 			<div class="header-cart-content flex-w js-pscroll">
 				<ul class="header-cart-wrapitem w-full" id="cart-modal-list">
+                    {{!-- Populate in server --}}
 					{{#each cart.products}}
 					<li class='header-cart-item flex-w flex-t m-b-12'> 
 						<div class='header-cart-item-img'> 
@@ -26,6 +27,9 @@
 							</div>
 					</li>
 					{{/each}}
+                    {{!-- / --}}
+				</ul>
+				                    {{!-- Populate in client --}}
                     <script id="modal-cart-line" type="template">
                     <li class='header-cart-item flex-w flex-t m-b-12'> 
                         <div class='header-cart-item-img'>
@@ -33,12 +37,10 @@
                         </div>
                         <div class='header-cart-item-txt p-t-8'>
                             <a href='#' class='header-cart-item-name m-b-18 hov-cl1 trans-04'> {nameProduct} </a>
-                            <span class='header-cart-item-info'> 1 x ${priceProduct}</span>
+                            <span class='header-cart-item-info'> {qtyProduct} x {priceProduct}€</span>
                         </div>
                     </li>
                     </script>
-					
-				</ul>
 				
 				<div class="w-full">
 					<div class='header-cart-total w-full p-tb-40'> 

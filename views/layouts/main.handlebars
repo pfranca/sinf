@@ -248,31 +248,51 @@
 			var nameProduct = $(this).parent().parent().parent().parent().find('.js-name-detail').html();
 			var priceProduct = $(this).parent().parent().parent().parent().find('.js-price-detail').html();
 			var idProduct = $(this).parent().parent().parent().parent().find('.js-id-detail').html();
+		
 			
 
 		
 			$(this).on('click', function(){
-				  var tmp = $.trim($('#modal-cart-line').html());
-				  var new_line = tmp.replace(/{nameProduct}/ig, nameProduct)
-				  					.replace(/{priceProduct}/ig, priceProduct)
-									.replace(/{idProduct}/ig, idProduct);
-				  //var $total = $("<div class='header-cart-total w-full p-tb-40'> Total: </div>");
+				var qtyProduct = $(this).parent().find('.num-product').val();
+				const tmp = $.trim($('#modal-cart-line').html());
+
 				var socket = io();
 				socket.emit ('addToCart', {
 					id: idProduct,
-					qty: 1
+					qty: qtyProduct,
 					}); //todo HARDCODED
+				socket.on('refresh_cart', function(data){
+					var products = data.products;
+					var total = data.total;
+					var all_lines = [];
+					products.forEach(function(product){
+						var new_line = tmp.replace(/{nameProduct}/ig, product.nameProduct)
+				  					.replace(/{idProduct}/ig, product.idProduct)
+				  					.replace(/{priceProduct}/ig, product.priceProduct)
+									.replace(/{qtyProduct}/ig, product.qtyProduct);
+						all_lines.push(new_line);
+					});
+					$("#cart-modal-list").empty();
+					all_lines.forEach(function(line){
+					$("#cart-modal-list").append(line);
+					$("#totalPrice").html(total);
+				});
+				
+				swal({
+					title: nameProduct,
+					text: 'is added to cart!',
+					icon: "success",
+					buttons: false,
+					timer: 1000
+					});	
+
+
+				});
 				
 				var numerozinho = parseInt($("#numerozinho").attr('data-notify'))
 				numerozinho += 1;
-
 				$("#numerozinho").attr('data-notify', numerozinho);
-				var totalPrice = parseFloat($("#totalPrice").html());
-				totalPrice += parseFloat(priceProduct);
-				totalPrice.toFixed(2);
-				$("#cart-modal-list").append(new_line);
-				$("#totalPrice").html(totalPrice);
-				swal(nameProduct, "is added to cart !", "success");											
+								
 					
 		});
 		});
