@@ -252,7 +252,10 @@
 
 		
 			$(this).on('click', function(){
-				  var $newli1 = $( "<li class='header-cart-item flex-w flex-t m-b-12'> <div class='header-cart-item-img'> <img src='images/"+idProduct+".jpg' alt='IMG'></div><div class='header-cart-item-txt p-t-8'> <a href='#'' class='header-cart-item-name m-b-18 hov-cl1 trans-04'> "+nameProduct+" </a><span class='header-cart-item-info'> 1 x $"+priceProduct+" </span></div></li>" );
+				  var tmp = $.trim($('#modal-cart-line').html());
+				  var new_line = tmp.replace(/{nameProduct}/ig, nameProduct)
+				  					.replace(/{priceProduct}/ig, priceProduct)
+									.replace(/{idProduct}/ig, idProduct);
 				  //var $total = $("<div class='header-cart-total w-full p-tb-40'> Total: </div>");
 				var socket = io();
 				socket.emit ('addToCart', {
@@ -267,7 +270,7 @@
 				var totalPrice = parseFloat($("#totalPrice").html());
 				totalPrice += parseFloat(priceProduct);
 				totalPrice.toFixed(2);
-				$("#idCart").append($newli1);
+				$("#cart-modal-list").append(new_line);
 				$("#totalPrice").html(totalPrice);
 				swal(nameProduct, "is added to cart !", "success");											
 					
