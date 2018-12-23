@@ -2,14 +2,144 @@ var express = require('express');
 var request = require('request');
 var router = express.Router();
 
-router.get('/',function(req,res){
+
+
+router.get('/',function(req,res){    
     res.render('checkout', {layout: false});
+});
+
+router.post('/new-user',function(req,res){
+
+
+    var options = {
+        method: 'POST',
+        url: url + 'Base/Clientes/Actualiza',
+        headers:
+            {
+                'cache-control': 'no-cache',
+                Authorization: 'Bearer ' + token,
+                'Content-Type': 'application/json' },
+        body:
+            {
+                Cliente: req.session.user.name,
+                Nome: req.body.nomeCliente,
+                Morada: req.body.moradaCliente,
+                Localidade: req.body.localidadeCliente,
+                CodigoPostal: req.body.zipCliente,
+                LocalidadeCodigoPostal: req.body.localidadeCodigoPostalCliente,
+                NumContribuinte: req.body.nifCliente,
+                CondPag: '2',
+                Pais: req.body.paisCliente,
+                Moeda: 'EUR'
+            },
+        json: true
+     };
+
+    request(options, (error, response, body) => {
+        if(error){
+
+            console.error('erro' + error);
+            res.redirect('back');
+        }
+        console.log(body)
+        res.redirect('confirmOrder')
+    });
+
+});
+
+
+router.get('/confirmOrder',function(req,res){
+    console.log('USER: ');
+    console.log(req.session.user);
+
+    var products = req.session.cart.products;
+    if(products.length == 0){
+        res.redirect('back');
+    }
+    else{
+    var queryString = [];
+    products.forEach(element => {
+        var str = "\'" + element.id + "\'"
+        queryString.push(str);
+    });
+    var query = "SELECT A.Artigo,A.Descricao, A.Observacoes ,AM.PVP1,AA.StkActual FROM Artigo A,ArtigoMoeda AM , V_INV_ArtigoArmazem AA WHERE A.Artigo=AA.Artigo AND A.Artigo=AM.Artigo AND A.Artigo IN ("+ queryString.toString() +")";
+    var options = {
+        method: 'POST',
+        url: url + 'Administrador/Consulta',
+        headers:
+            {
+                'cache-control': 'no-cache',
+                Authorization: 'Bearer ' + token,
+                'Content-Type': 'application/json' },
+        body: query,
+        json: true };
+
+        request(options, (error, response, body) => {
+            if(error){
+        
+                console.error("erro" + error);
+                return;
+            }
+            
+            if(body.DataSet != undefined){
+                // console.log(body.DataSet.Table)
+                 let totalPrice = 0;
+                 for(let product of body.DataSet.Table){
+                     totalPrice += parseFloat(product.PVP1);
+                }
+                 res.render('checkoutEncomenda', {
+                     layout:false,
+                     products:body.DataSet.Table,
+                     totalPrice: totalPrice
+                 });
+             }else{
+                 res.send(body);
+             }
+         });
+     }
+    });
+
+router.post('/createECL',function(req,res){
+
+
+    var options = {
+        method: 'POST',
+        url: url + '...',
+        headers:
+            {
+                'cache-control': 'no-cache',
+                Authorization: 'Bearer ' + token,
+                'Content-Type': 'application/json' },
+        body:
+            {
+                
+            },
+        json: true
+        };
+
+    request(options, (error, response, body) => {
+        if(error){
+
+            console.error('erro' + error);
+            res.redirect('back');
+        }
+        console.log(body)
+        res.redirect('payment')
+    });
+
+});   
+
+
+router.get('/payment',function(req,res){
+
+    
+    res.render('checkoutPayment', {layout: false});
 });
 
 
 
 //Stock
-
+/*
 var queryHasSock="SELECT AM.Artigo,A.Descricao,AM.PVP1,AA.StkActual FROM Artigo A,ArtigoMoeda AM INNER JOIN V_INV_ArtigoArmazem AA ON AM.Artigo = AA.Artigo WHERE AM.Artigo='";
 var endQueryHasStock="ORDER BY AM.Artigo";
 
@@ -49,7 +179,8 @@ router.get('/',function(req,res){
 
     });
 });
-
+*/
+/*
 router.get('/first-step', function(req,res){
     let options = {
         method: 'GET',
@@ -100,9 +231,11 @@ router.get('/first-step', function(req,res){
     });
 
 });
+*/
 
 //Sales order to invoice
 //TODO hardcoded
+/*
 router.get('/',function(req,res){
     arrayItem.forEach(function(value){
         console.log(value);
@@ -131,9 +264,11 @@ router.get('/',function(req,res){
 
     });
 });
+*/
 
 
 //Item stock
+/*
 router.get('/:item',function(req,res){
     const final=queryHasSock.concat(req.params.item+"\'"+endQueryHasStock);
     var options = { method: 'GET',
@@ -154,8 +289,11 @@ router.get('/:item',function(req,res){
         res.send(body);
     });
 });
+*/
+
 //check if client exists
 //TODO hardcoded
+/*
 router.get('/user-exists/:user',function(req,res){
     var options = {
         method: 'GET',
@@ -175,9 +313,11 @@ router.get('/user-exists/:user',function(req,res){
         res.send(body);
     });
 });
+*/
 
 //all items from order
 //TODO hardcoded
+/*
 router.get('/user-items/:user',function(req,res){
     var options = {
         method: 'POST',
@@ -199,42 +339,9 @@ router.get('/user-items/:user',function(req,res){
         res.send(body);
     });
 });
-
+*/
 //create new client
 //TODO hardcoded
-router.get('/new-user',function(req,res){
-    var options = {
-        method: 'POST',
-        url: url + 'Base/Clientes/Actualiza',
-        headers:
-            {
-                'cache-control': 'no-cache',
-                Authorization: 'Bearer ' + token,
-                'Content-Type': 'application/json' },
-        body:
-            {
-                Cliente: 'SMITHJ',
-                Nome: 'John Smith',
-                Descricao: 'WebStoreUserJohnSmith',
-                Morada: 'Random Street n 123',
-                Localidade: 'PORTO',
-                CodigoPostal: '4200',
-                LocalidadeCodigoPostal: 'PORTO',
-                NumContribuinte: '123456789',
-                Pais: 'PT',
-                Moeda: 'EUR'
-            },
-        json: true
-     };
 
-    request(options, (error, response, body) => {
-        if(error){
-
-            console.error('erro' + error);
-            return;
-        }
-        res.send(body);
-    });
-});
 
 module.exports = router;

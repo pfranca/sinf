@@ -1,4 +1,4 @@
-$(function(){
+/*$(function(){
 	$("#wizard").steps({
         headerTag: "h4",
         bodyTag: "section",
@@ -47,3 +47,4 @@ $(function(){
     })
     
 })
+*/
